@@ -81,7 +81,7 @@
     </div>
   </div></section>
 
-  <section><div class="wrap">
+  <section id="secDepo"><div class="wrap">
     <h2>O que dizem os clientes</h2>
     <div class="grade" id="depoimentos"></div>
   </div></section>
@@ -118,6 +118,7 @@ const CONFIG = {
     ["Ambiente bom, preço justo. Virei cliente fixo.", "André P."],
   ],
   rodape: "Site de demonstração",
+  demo: "",                         // na prévia para um lead: "Prévia feita para <nome>. Ainda não é o site oficial." (mostra faixa e pede para o Google não indexar)
 };
 // ============================================================
 
@@ -142,6 +143,11 @@ $("servicos").innerHTML = CONFIG.servicos.map(s => `
   <span class="preco">${esc(s.preco)}</span></div>`).join("");
 $("horarios").innerHTML = CONFIG.horarios.map(([d, h]) => `<li><span>${esc(d)}</span><strong>${esc(h)}</strong></li>`).join("");
 $("depoimentos").innerHTML = CONFIG.depoimentos.map(([t, a]) => `<div class="card depo"><p>“${esc(t)}”</p><span>— ${esc(a)}</span></div>`).join("");
+if (!CONFIG.depoimentos.length) $("secDepo").remove();
+if (CONFIG.demo) {
+  document.head.insertAdjacentHTML("beforeend", '<meta name="robots" content="noindex, nofollow">');
+  document.body.insertAdjacentHTML("afterbegin", `<div style="background:#ffd54a;color:#111;text-align:center;padding:8px;font-size:.9rem;font-weight:600">${esc(CONFIG.demo)}</div>`);
+}
 $("fServico").innerHTML = CONFIG.servicos.map(s => `<option>${esc(s.nome)} (${esc(s.preco)})</option>`).join("");
 $("fHora").innerHTML = CONFIG.horasAgenda.map(h => `<option>${h}</option>`).join("");
 const hoje = new Date(); hoje.setMinutes(hoje.getMinutes() - hoje.getTimezoneOffset());
