@@ -12,88 +12,188 @@
 <meta name="theme-color" content="#b8862b">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BarberShop","name":"Lords Barbearia Medieval","address":"Av. Francisco Conde, 644 - Vila Rosália, Guarulhos - SP","telephone":"+5511945854960","url":"https://reisdevv.github.io/demo-barbearia/previas/lords/"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@500;700&family=Montserrat:wght@400;500;700&family=Varela+Round&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-  :root { --cor: #c8a165; --fundo: #121212; --card: #1d1d1d; --texto: #f2f2f2; --suave: #a8a8a8; }
+  /* Tema barbearia (padrão): escuro, serifado, cardápio com pontilhado */
+  :root {
+    --cor: #c8a165; --fundo: #0e0d0c; --fundo2: #171513; --texto: #f5f1ea; --suave: #b3aca2; --linha: #2e2a26;
+    --titulo: Cormorant, Georgia, serif; --corpo: Montserrat, system-ui, sans-serif; --raio: 4px; --sombra: none; --sobreCor: #111;
+  }
+  /* Tema pet: claro, arredondado, fofo */
+  .tema-pet {
+    --fundo: #fff8f3; --fundo2: #ffffff; --texto: #2b2233; --suave: #6b5f73; --linha: #f0e2d8;
+    --titulo: "Varela Round", system-ui, sans-serif; --corpo: Nunito, system-ui, sans-serif; --raio: 22px;
+    --sombra: 0 6px 0 color-mix(in srgb, var(--cor) 25%, #fff), 0 12px 30px #2b223314; --sobreCor: #1f1626;
+  }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: Inter, system-ui, sans-serif; background: var(--fundo); color: var(--texto); line-height: 1.5; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--corpo); background: var(--fundo); color: var(--texto); line-height: 1.6; font-size: 16px; }
   a { color: inherit; }
-  .wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
-  header { padding: 72px 0 56px; background: radial-gradient(circle at 80% 0%, color-mix(in srgb, var(--cor) 35%, transparent), transparent 60%); }
-  .selo { display: inline-block; font-size: .85rem; color: var(--suave); border: 1px solid #333; border-radius: 99px; padding: 4px 12px; margin-bottom: 18px; }
-  h1 { font-size: clamp(2.2rem, 7vw, 3.6rem); font-weight: 800; line-height: 1.1; }
-  .slogan { color: var(--suave); font-size: 1.15rem; margin: 14px 0 28px; max-width: 34ch; }
-  .btn { display: inline-flex; align-items: center; gap: 10px; background: var(--cor); color: #111; font-weight: 800; text-decoration: none; border: 0; border-radius: 12px; padding: 14px 22px; font-size: 1rem; cursor: pointer; }
-  .btn:focus-visible, select:focus-visible, input:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
-  .btn.sec { background: transparent; color: var(--texto); border: 1px solid #444; }
+  body { overflow-x: clip; } .wrap > *, .agenda > *, .info > * { min-width: 0; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+  :focus-visible { outline: 3px solid var(--cor); outline-offset: 3px; }
+
+  .topo { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--fundo) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--linha); }
+  .topo .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 64px; }
+  .marca { font-family: var(--titulo); font-weight: 700; font-size: 1.35rem; text-decoration: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .topo nav { display: flex; gap: 22px; font-size: .9rem; }
+  .topo nav a { text-decoration: none; color: var(--suave); }
+  .topo nav a:hover { color: var(--texto); }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; background: var(--cor); color: var(--sobreCor); font: 700 1rem var(--corpo); text-decoration: none; border: 0; border-radius: var(--raio); padding: 12px 24px; cursor: pointer; transition: transform .2s, filter .2s; }
+  .btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+  .btn.sec { background: transparent; color: var(--texto); border: 1px solid var(--linha); }
+  .btn svg { width: 20px; height: 20px; flex: none; }
+
+  .hero { padding: 88px 0 72px; position: relative; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; inset: -40% -20% auto auto; width: 70vw; height: 70vw; max-width: 720px; max-height: 720px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--cor) 28%, transparent), transparent 65%); pointer-events: none; }
+  .selo { display: inline-flex; align-items: center; gap: 8px; font-size: .85rem; letter-spacing: .04em; color: var(--suave); margin-bottom: 22px; }
+  .selo .estrelas { color: var(--cor); letter-spacing: 2px; }
+  h1 { font-family: var(--titulo); font-weight: 700; font-size: clamp(2.8rem, 9vw, 5.4rem); line-height: 1; max-width: 14ch; }
+  .slogan { color: var(--suave); font-size: 1.15rem; margin: 22px 0 34px; max-width: 40ch; }
   .acoes { display: flex; flex-wrap: wrap; gap: 12px; }
-  section { padding: 48px 0; border-top: 1px solid #222; }
-  h2 { font-size: 1.6rem; margin-bottom: 20px; }
-  .grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
-  .card { background: var(--card); border-radius: 14px; padding: 18px; }
-  .serv { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-  .serv small { color: var(--suave); display: block; }
-  .preco { color: var(--cor); font-weight: 800; white-space: nowrap; }
-  form { display: grid; gap: 12px; max-width: 460px; }
-  label { font-size: .9rem; color: var(--suave); display: grid; gap: 6px; }
-  select, input { font: inherit; background: var(--card); color: var(--texto); border: 1px solid #333; border-radius: 10px; padding: 12px; }
-  .horarios li { list-style: none; display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #2c2c2c; }
-  .depo p { font-style: italic; } .depo span { color: var(--suave); font-size: .9rem; }
-  iframe { width: 100%; height: 300px; border: 0; border-radius: 14px; filter: grayscale(.3); }
-  footer { padding: 32px 0 96px; color: var(--suave); font-size: .85rem; text-align: center; }
-  .flutuante { position: fixed; right: 18px; bottom: 18px; width: 60px; height: 60px; border-radius: 50%; background: #25d366; display: grid; place-items: center; box-shadow: 0 6px 20px #0008; }
+
+  section { padding: 72px 0; border-top: 1px solid var(--linha); }
+  .rotulo { font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; color: var(--cor); font-weight: 700; margin-bottom: 8px; }
+  h2 { font-family: var(--titulo); font-weight: 700; font-size: clamp(2rem, 5vw, 2.8rem); line-height: 1.1; margin-bottom: 32px; }
+
+  .menu { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 8px 48px; }
+  .item { display: grid; grid-template-columns: auto 1fr auto; align-items: baseline; gap: 10px; padding: 16px 0; border-bottom: 1px solid var(--linha); }
+  .item strong { font-size: 1.05rem; }
+  .item .pontos { border-bottom: 1px dotted var(--suave); opacity: .5; transform: translateY(-4px); }
+  .item .preco { color: var(--cor); font-weight: 700; white-space: nowrap; }
+  .item small { grid-column: 1 / -1; color: var(--suave); margin-top: -6px; }
+  .tema-pet .menu { gap: 16px; }
+  .tema-pet .item { background: var(--fundo2); border: 2px solid var(--linha); border-radius: var(--raio); padding: 18px 20px; box-shadow: var(--sombra); }
+  .tema-pet .item .preco { color: var(--texto); background: color-mix(in srgb, var(--cor) 22%, #fff); padding: 2px 10px; border-radius: 99px; }
+
+  .agenda { display: grid; grid-template-columns: 1fr 1.2fr; gap: 48px; align-items: start; }
+  .agenda p { color: var(--suave); }
+  .passos { list-style: none; margin-top: 24px; display: grid; gap: 14px; }
+  .passos li { display: flex; gap: 14px; align-items: center; }
+  .passos b { width: 36px; height: 36px; flex: none; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--cor); color: var(--cor); font-family: var(--titulo); font-size: 1.1rem; }
+  form { display: grid; gap: 18px; background: var(--fundo2); border: 1px solid var(--linha); border-radius: var(--raio); padding: 28px; box-shadow: var(--sombra); }
+  fieldset { border: 0; display: grid; gap: 8px; }
+  legend, label { font-size: .9rem; font-weight: 700; display: grid; gap: 8px; }
+  legend { margin-bottom: 8px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips input { position: absolute; opacity: 0; pointer-events: none; }
+  .chips label { display: inline-flex; font-weight: 500; min-height: 44px; align-items: center; padding: 8px 14px; border: 1px solid var(--linha); border-radius: var(--raio); cursor: pointer; transition: background .2s, border-color .2s; }
+  .tema-pet .chips label { border-radius: 99px; }
+  .chips input:checked + label { background: var(--cor); border-color: var(--cor); color: var(--sobreCor); }
+  .chips input:focus-visible + label { outline: 3px solid var(--cor); outline-offset: 2px; }
+  .linha2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  select, input { font: inherit; font-weight: 400; min-height: 48px; background: var(--fundo); color: var(--texto); border: 1px solid var(--linha); border-radius: var(--raio); padding: 10px 12px; width: 100%; }
+  .tema-pet select, .tema-pet input { border-radius: 14px; }
+  form .btn { width: 100%; }
+
+  .info { display: grid; grid-template-columns: 1fr 1.3fr; gap: 48px; }
+  .horarios li { list-style: none; display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--linha); }
+  .horarios li.hoje { color: var(--cor); font-weight: 700; }
+  iframe { width: 100%; height: 320px; border: 0; border-radius: var(--raio); margin-top: 14px; }
+  body:not(.tema-pet) iframe { filter: grayscale(1) invert(.9) contrast(.9); }
+
+  .depos { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .depo { background: var(--fundo2); border: 1px solid var(--linha); border-radius: var(--raio); padding: 24px; box-shadow: var(--sombra); }
+  .depo p { font-family: var(--titulo); font-size: 1.3rem; line-height: 1.35; margin-bottom: 12px; }
+  .depo span { color: var(--suave); font-size: .9rem; }
+
+  .final { text-align: center; }
+  .final h2 { margin-inline: auto; max-width: 18ch; }
+  footer { padding: 32px 0 110px; color: var(--suave); font-size: .85rem; text-align: center; border-top: 1px solid var(--linha); }
+
+  .barra { display: none; }
+  .flutuante { position: fixed; right: 20px; bottom: 20px; width: 60px; height: 60px; border-radius: 50%; background: #25d366; display: grid; place-items: center; box-shadow: 0 6px 20px #0006; z-index: 10; }
   .flutuante svg { width: 32px; height: 32px; fill: #fff; }
+
+  @media (max-width: 760px) {
+    .topo nav { display: none; }
+    .hero { padding: 56px 0 48px; }
+    section { padding: 56px 0; }
+    .agenda, .info { grid-template-columns: 1fr; gap: 32px; }
+    form { padding: 20px; }
+    .flutuante { display: none; }
+    .barra { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; position: fixed; inset: auto 0 0 0; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); background: var(--fundo2); border-top: 1px solid var(--linha); z-index: 10; }
+    .barra .zapb { background: #25d366; color: #0b2b16; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn { transition: none; } }
 </style>
 </head>
 <body>
-<header>
-  <div class="wrap">
-    <span class="selo" id="nota"></span>
-    <h1 id="nome"></h1>
-    <p class="slogan" id="slogan"></p>
-    <div class="acoes">
-      <a class="btn" href="#agendar">Agendar horário</a>
-      <a class="btn sec" id="btnRota" target="_blank" rel="noopener">Como chegar</a>
-    </div>
+<div class="topo"><div class="wrap">
+  <a class="marca" href="#" id="marca"></a>
+  <nav aria-label="Seções"><a href="#servicos">Serviços</a><a href="#agendar">Agendar</a><a href="#onde">Onde estamos</a></nav>
+  <a class="btn" href="#agendar" style="min-height:40px;padding:8px 16px;font-size:.9rem">Agendar</a>
+</div></div>
+
+<header class="hero"><div class="wrap">
+  <p class="selo"><span class="estrelas" aria-hidden="true">★★★★★</span><span id="nota"></span></p>
+  <h1 id="nome"></h1>
+  <p class="slogan" id="slogan"></p>
+  <div class="acoes">
+    <a class="btn" href="#agendar">Agendar horário</a>
+    <a class="btn sec" id="btnRota" target="_blank" rel="noopener">Como chegar</a>
   </div>
-</header>
+</div></header>
 
 <main>
-  <section><div class="wrap">
-    <h2>Serviços e preços</h2>
-    <div class="grade" id="servicos"></div>
+  <section id="servicos"><div class="wrap">
+    <p class="rotulo">Serviços</p>
+    <h2>Preços sem surpresa</h2>
+    <div class="menu" id="listaServicos"></div>
   </div></section>
 
-  <section id="agendar"><div class="wrap">
-    <h2>Agende em 30 segundos</h2>
+  <section id="agendar"><div class="wrap agenda">
+    <div>
+      <p class="rotulo">Agendamento</p>
+      <h2>Seu horário em 30 segundos</h2>
+      <p>Sem app e sem cadastro. Você escolhe, e a mensagem chega pronta no nosso WhatsApp.</p>
+      <ol class="passos">
+        <li><b>1</b>Escolha o serviço</li>
+        <li><b>2</b>Escolha o dia e o horário</li>
+        <li><b>3</b>Confirme pelo WhatsApp</li>
+      </ol>
+    </div>
     <form id="form">
-      <label>Serviço <select id="fServico" required></select></label>
-      <label>Dia <input type="date" id="fDia" required></label>
-      <label>Horário preferido <select id="fHora" required></select></label>
+      <fieldset><legend>Serviço</legend><div class="chips" id="fServico"></div></fieldset>
+      <div class="linha2">
+        <label>Dia <input type="date" id="fDia" required></label>
+        <label>Horário <select id="fHora" required></select></label>
+      </div>
       <label>Seu nome <input id="fNome" autocomplete="given-name" required></label>
       <button class="btn" type="submit">Confirmar pelo WhatsApp</button>
     </form>
   </div></section>
 
-  <section><div class="wrap grade">
+  <section id="onde"><div class="wrap info">
     <div>
-      <h2>Horário de funcionamento</h2>
+      <p class="rotulo">Horários</p>
+      <h2>Quando abrimos</h2>
       <ul class="horarios" id="horarios"></ul>
     </div>
     <div>
+      <p class="rotulo">Endereço</p>
       <h2>Onde estamos</h2>
-      <p id="endereco" style="margin-bottom:12px"></p>
+      <p id="endereco"></p>
       <iframe id="mapa" title="Mapa com a localização" loading="lazy"></iframe>
     </div>
   </div></section>
 
   <section id="secDepo"><div class="wrap">
-    <h2>O que dizem os clientes</h2>
-    <div class="grade" id="depoimentos"></div>
+    <p class="rotulo">Avaliações</p>
+    <h2>Quem vem, volta</h2>
+    <div class="depos" id="depoimentos"></div>
+  </div></section>
+
+  <section class="final"><div class="wrap">
+    <h2>Bora marcar o seu horário?</h2>
+    <a class="btn" href="#agendar">Agendar agora</a>
   </div></section>
 </main>
 
 <footer><div class="wrap" id="rodape"></div></footer>
+<div class="barra"><a class="btn" href="#agendar">Agendar</a><a class="btn zapb" id="zap2" target="_blank" rel="noopener">WhatsApp</a></div>
 <a class="flutuante" id="zap" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
 </a>
@@ -177,42 +277,44 @@ const zap = msg => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(m
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
 document.title = CONFIG.nome;
+if (CONFIG.tema === "pet") document.body.classList.add("tema-pet");
 document.documentElement.style.setProperty("--cor", CONFIG.cor);
-$("nome").textContent = CONFIG.nome;
+$("marca").textContent = $("nome").textContent = CONFIG.nome;
 $("slogan").textContent = CONFIG.slogan;
-$("nota").textContent = "★ " + CONFIG.nota;
+$("nota").textContent = CONFIG.nota;
 $("endereco").textContent = CONFIG.endereco;
 $("rodape").textContent = `${CONFIG.nome} · ${CONFIG.endereco} · ${CONFIG.rodape}`;
 const q = encodeURIComponent(CONFIG.endereco);
 $("mapa").src = `https://www.google.com/maps?q=${q}&output=embed`;
 $("btnRota").href = `https://www.google.com/maps/dir/?api=1&destination=${q}`;
-$("zap").href = zap(`Olá, ${CONFIG.nome}! Vim pelo site.`);
+$("zap").href = $("zap2").href = zap(`Olá, ${CONFIG.nome}! Vim pelo site.`);
 
-$("servicos").innerHTML = CONFIG.servicos.map(s => `
-  <div class="card serv"><div><strong>${esc(s.nome)}</strong><small>${esc(s.detalhe)}</small></div>
-  <span class="preco">${esc(s.preco)}</span></div>`).join("");
-$("horarios").innerHTML = CONFIG.horarios.map(([d, h]) => `<li><span>${esc(d)}</span><strong>${esc(h)}</strong></li>`).join("");
-$("depoimentos").innerHTML = CONFIG.depoimentos.map(([t, a]) => `<div class="card depo"><p>“${esc(t)}”</p><span>— ${esc(a)}</span></div>`).join("");
+$("listaServicos").innerHTML = CONFIG.servicos.map(s => `
+  <div class="item"><strong>${esc(s.nome)}</strong><span class="pontos"></span><span class="preco">${esc(s.preco)}</span><small>${esc(s.detalhe)}</small></div>`).join("");
+// destaca o dia de hoje quando o rótulo é simples ("Sábado", "Domingo")
+const diaHoje = ["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"][new Date().getDay()].slice(0, 3).toLowerCase();
+$("horarios").innerHTML = CONFIG.horarios.map(([d, h]) => `<li class="${d.toLowerCase().startsWith(diaHoje) ? "hoje" : ""}"><span>${esc(d)}</span><strong>${esc(h)}</strong></li>`).join("");
+$("depoimentos").innerHTML = CONFIG.depoimentos.map(([t, a]) => `<figure class="depo"><p>“${esc(t)}”</p><span>— ${esc(a)}</span></figure>`).join("");
 if (!CONFIG.depoimentos.length) $("secDepo").remove();
 if (CONFIG.demo) {
   document.head.insertAdjacentHTML("beforeend", '<meta name="robots" content="noindex, nofollow">');
   document.body.insertAdjacentHTML("afterbegin", `<div style="background:#ffd54a;color:#111;text-align:center;padding:8px;font-size:.9rem;font-weight:600">${esc(CONFIG.demo)}</div>`);
 }
-$("fServico").innerHTML = CONFIG.servicos.map(s => `<option>${esc(s.nome)} (${esc(s.preco)})</option>`).join("");
+$("fServico").innerHTML = CONFIG.servicos.map((s, i) => `<input type="radio" name="serv" id="s${i}" value="${esc(s.nome)} (${esc(s.preco)})" ${i ? "" : "checked"}><label for="s${i}">${esc(s.nome)}</label>`).join("");
 $("fHora").innerHTML = CONFIG.horasAgenda.map(h => `<option>${h}</option>`).join("");
 const hoje = new Date(); hoje.setMinutes(hoje.getMinutes() - hoje.getTimezoneOffset());
 $("fDia").min = $("fDia").value = hoje.toISOString().slice(0, 10);
 
 if (CONFIG.linkAgenda) {
   $("agendar").remove();
-  const b = document.querySelector('a[href="#agendar"]');
-  b.href = CONFIG.linkAgenda; b.target = "_blank"; b.rel = "noopener";
+  document.querySelectorAll('a[href="#agendar"]').forEach(b => { b.href = CONFIG.linkAgenda; b.target = "_blank"; b.rel = "noopener"; });
 }
 
 $("form")?.addEventListener("submit", e => {
   e.preventDefault();
   const dia = $("fDia").value.split("-").reverse().join("/");
-  window.open(zap(`Olá! Sou ${$("fNome").value.trim()} e quero agendar:\n• ${$("fServico").value}\n• Dia ${dia} às ${$("fHora").value}\nPode confirmar?`), "_blank", "noopener");
+  const serv = document.querySelector('input[name="serv"]:checked').value;
+  window.open(zap(`Olá! Sou ${$("fNome").value.trim()} e quero agendar:\n• ${serv}\n• Dia ${dia} às ${$("fHora").value}\nPode confirmar?`), "_blank", "noopener");
 });
 </script>
 </body>
